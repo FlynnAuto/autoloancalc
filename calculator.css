@@ -38,6 +38,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 #calculator button:hover {
