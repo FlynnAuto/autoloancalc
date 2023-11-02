@@ -4,14 +4,21 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const annualInterestRate = parseFloat(document.getElementById("interestRate").value) / 100;
     const monthlyInterestRate = annualInterestRate / 12;
     const loanTerm = parseFloat(document.getElementById("loanTerm").value);
+    const taxRate = 0.13; // 13% tax rate
 
     if (vehiclePrice && annualInterestRate && loanTerm) {
-        // Calculate the principal amount as (vehicle price - trade-in) + 13% taxes
-        const taxRate = 0.13;
-        const principalAmount = (vehiclePrice - tradeInAmount) * (1 + taxRate);
+        // Calculate the principal amount as (vehicle price - trade-in)
+        const principalAmount = vehiclePrice - tradeInAmount;
 
+        // Calculate taxes on the principal amount
+        const taxes = principalAmount * taxRate;
+
+        // Calculate the total loan amount including taxes
+        const totalLoanAmount = principalAmount + taxes;
+
+        // Calculate the monthly payment using the standard formula
         const numberOfPayments = loanTerm;
-        const monthlyPayment = principalAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+        const monthlyPayment = (totalLoanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
 
         document.getElementById("monthlyPayment").textContent = "$" + monthlyPayment.toFixed(2);
     } else {
