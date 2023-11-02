@@ -1,0 +1,17 @@
+#calculator {
+    width: 300px;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#calculator label, #calculator input, #calculator button {
+    display: block;
+    margin: 10px 0;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+}
