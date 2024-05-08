@@ -11,13 +11,8 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     if (vehiclePrice && annualInterestRate && loanTerm) {
         let principalAmount;
 
-        if (downPayment) {
-            // Calculate the principal amount as (vehicle price - trade-in) + 13% taxes - down payment
-            principalAmount = ((vehiclePrice - tradeInAmount) * (1 + taxRate)) - downPayment;
-        } else {
-            // Calculate the principal amount as (vehicle price - trade-in) + 13% taxes
-            principalAmount = (vehiclePrice - tradeInAmount) * (1 + taxRate);
-        }
+        // Calculate the principal amount as (vehicle price - trade-in) + 13% taxes - down payment
+        principalAmount = ((vehiclePrice - tradeInAmount) * (1 + taxRate)) - downPayment;
 
         // Calculate the monthly payment using the standard formula
         const numberOfPayments = loanTerm;
