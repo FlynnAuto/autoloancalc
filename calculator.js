@@ -1,4 +1,12 @@
-document.getElementById("calculateButton").addEventListener("click", function() {
+// Listen for input events on the input fields
+document.getElementById("vehiclePrice").addEventListener("input", calculateMonthlyPayment);
+document.getElementById("tradeInAmount").addEventListener("input", calculateMonthlyPayment);
+document.getElementById("interestRate").addEventListener("input", calculateMonthlyPayment);
+document.getElementById("loanTerm").addEventListener("input", calculateMonthlyPayment);
+document.getElementById("downPayment").addEventListener("input", calculateMonthlyPayment);
+
+// Function to calculate monthly payment
+function calculateMonthlyPayment() {
     const vehiclePrice = parseFloat(document.getElementById("vehiclePrice").value);
     const tradeInAmount = parseFloat(document.getElementById("tradeInAmount").value);
     const annualInterestRate = parseFloat(document.getElementById("interestRate").value) / 100;
@@ -11,10 +19,12 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     if (vehiclePrice && annualInterestRate && loanTerm) {
         let principalAmount;
 
-        // Calculate the principal amount as (vehicle price - trade-in) + 13% taxes - down payment
-        principalAmount = ((vehiclePrice - tradeInAmount) * (1 + taxRate)) - downPayment;
+        if (downPayment) {
+            principalAmount = ((vehiclePrice - tradeInAmount) * (1 + taxRate)) - downPayment;
+        } else {
+            principalAmount = (vehiclePrice - tradeInAmount) * (1 + taxRate);
+        }
 
-        // Calculate the monthly payment using the standard formula
         const numberOfPayments = loanTerm;
         const monthlyPayment = (principalAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
 
@@ -22,4 +32,4 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     } else {
         document.getElementById("monthlyPayment").textContent = "Invalid inputs";
     }
-});
+}
